@@ -3,11 +3,14 @@ import mongoose from "mongoose";
 import { json } from "body-parser";
 import "dotenv/config";
 import userRoutes from "./routes/user.route";
+import swaggerUi from 'swagger-ui-express'
+import * as swaggerDocument from './swagger.json'
 
 const app = express();
 
 app.use(json());
 app.use("/users", userRoutes);
+app.use('/swagger',swaggerUi.serve,swaggerUi.setup(swaggerDocument));
 app.get("/", (req, res) => {
     res.send("Test");
 });

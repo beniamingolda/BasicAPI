@@ -1,0 +1,179 @@
+
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "BasicAPI",
+        "description": "Podstawowe API GET POST PATCH DELETE",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "definitions":{
+        "id": {
+            "properties": {
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "User":{
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "required":true
+                },
+                "active": {
+                    "type": "boolean",
+                    "required":true
+                },
+                "age": {
+                    "type": "number",
+                    "required":true
+                }
+            }
+        },
+        "Users":{
+            "type":"object",
+            "properties":{
+                "users":{
+                    "type":"object",
+                    "additionalProperties":{
+                        "$ref":"#/definitions/User"
+                    }
+                }
+            }
+        }
+    },
+    "paths": {
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get all users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create a new user in system",
+                "requestBody": {
+                    "description": "User Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the user that we want to match",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get one user by id",
+                
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    },
+                    "400":{
+                        "description":"Failed. Missing ID"
+                    }
+                }
+            },
+            "patch":{
+                "tags": [
+                "Users"
+                ],
+                "summary": "Edit user by id",
+                "requestBody": {
+                    "description": "User Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    },
+                    "400":{
+                    "description":"Failed. Missing ID"
+                    }
+                }
+
+            },
+            "delete":{
+                "tags": [
+                "Users"
+                ],
+                "summary": "Delete user by id",
+            
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    },
+                    "400":{
+                    "description":"Failed. Missing ID"
+                    }
+                }
+
+            }
+        }
+    }
+}
