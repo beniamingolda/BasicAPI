@@ -6,11 +6,11 @@ Enviroment variable: DB_CONNECTION
 GET, POST, PATCH and DELETE users by id, from Database.
 Demo available at...:
 ```
-link in progress
+https://basic-api-benek.herokuapp.com/
 ```
 Swagger documentation: 
 ```
-/swagger
+https://basic-api-benek.herokuapp.com//swagger
 ```
 Instalation:
 ```
